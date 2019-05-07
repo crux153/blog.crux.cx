@@ -38,7 +38,8 @@ function Bio() {
               }}
             />
             <p>
-              by <strong>{author}</strong><br />
+              by <strong>{author}</strong>
+              <br />
               {description}
             </p>
           </div>
@@ -59,7 +60,7 @@ const bioQuery = graphql`
     }
     site {
       siteMetadata {
-        author,
+        author
         description
       }
     }
