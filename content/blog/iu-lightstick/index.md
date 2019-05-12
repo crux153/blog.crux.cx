@@ -104,7 +104,7 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 
 홈페이지([http://www.beatro.co.kr](http://www.beatro.co.kr))를 가보니 더 많다.
 
-![Bitro Homepage 2](./images/11.png)
+![Bitro Homepage](./images/11.png)
 
 기술 소개 항목이 있어 엄청 기대하고 들어갔는데... 텅 비어있다. -_-
 
@@ -141,3 +141,163 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 문제는 아이유 응원봉의 기판에는 저런 칩셋 정보가 전무하다는 것.
 
 그러다가 검색 중 똑같은 제조사에서 만든 박효신 콘서트 팔찌에는 IC가 그대로 보인다는 것을 발견했다.
+
+그래서 중고나라에서 박효신 콘서트 팔찌를 구입. 물론 같은 제조사더라도 통신 방식이 다를 수 있지만, 보통 제조사가 같으면 통신 방식도 비슷한 경우가 대부분이기에 일단 샀다.
+
+![Beatlight](./images/17.jpg)
+![Beatlight](./images/18.jpg)
+
+
+봤던 사진처럼 IC가 그대로 나와있다!
+
+....근데 하나는 아예 식별번호가 없고, 하나는 식별번호가 있긴 한데 검색해도 아무것도 안나왔다. 추측상 하나는 마이크로컨트롤러고 하나는 무선 모뎀인 듯 싶은데, 식별번호가 없으니 알 방법이.... 식별번호가 있는 IC에 비트로 회사 로고 비스무리한게 같이 적혀있는거 봐서는 아마 커스텀 IC일 가능성이 높아보인다.
+
+즉 여기서도 얻을 수 있는 정보는 없다는 얘기. ~~꽝~~
+
+---
+
+위에서의 각종 사전 분석 끝에 실제 제어 정보를 송신하는 컨트롤러 없이는 원격 제어 방식을 파악하는게 불가능하다고 결론내렸고, 응원봉 중앙 제어가 이뤄지는 콘서트 때까지 기다린 후, 콘서트 동안 제어 정보를 저장한 뒤 분석 해야겠다고 생각했다.
+
+그렇게 콘서트 공지가 뜨기까지 1년을 기다렸다.
+
+자, 그럼 콘서트 때 중앙 제어 정보를 어떻게 따올까?
+
+일단 모든 주파수 대역을 다 따올 수는 없으니 통신 주파수부터 알아야 한다. 문제는 파트 1에서 봤듯이 통신 주파수와 변조 방식이 상세히 나오는 FCC 인증과는 다르게 한국의 전파 인증은 그런거 안알랴줌이라는 것.
+
+다행히 이 문제는 간단히 해결되었는데,
+
+![IU Lightstick Spec](./images/19.jpg)
+
+응원봉 판매 페이지에 2.4Ghz 무선컨트롤 기능 이라고 친절하게 적혀 있었기 때문.
+
+뭐 그냥 저렇게 아무렇게나 적어놓고 실제로는 다른 주파수 대역을 쓸 수도 있지만... 일단 믿어보기로 했다.
+
+![ISM Band](./images/20.png)
+
+ISM 밴드는 별도로 허가나 신고를 하지 않아도 사용할 수 있는 주파수 대역인데, 2.4Ghz 대역의 ISM 주파수 대역은 2.4~2.4835Ghz 이다. Wi-Fi, Bluetooth 등이 쓰는 대역이다.
+
+즉, 콘서트 동안 요 주파수 대역을 저장해두면 된다는 얘기.
+
+![Capture Device](./images/21.jpg)
+
+그걸 위해 라즈베리 파이에 보조배터리, 수신 장비를 연결해놓고 콘서트 동안 가방 안에 넣고 켜두었다.
+
+내가 갖고있는 수신 장비로는 한번에 10Mhz 대역만 캡쳐가 가능해서, 1분씩 대역을 바꿔가며 저장하는 간단한 스크립트를 짠 뒤 라즈베리파이가 켜지면 자동으로 실행되도록 세팅했다.
+
+![Capture Script](./images/22.png)
+
+특성상 주파수 캡쳐 파일은 크기가 매우 크기 때문에, 라즈베이파이에 256GB SD 카드를 끼워놨는데도 금방 용량이 바닥난다.
+
+라즈베리파이 IO 성능이 너무 구려서 쓰기 속도를 못따라가길래 SD 슬롯도 오버클럭하고 메모리 버퍼 잡아주고 딜레이 넣고 하여간 튜닝에 좀 애먹었다. 인텔 보드 쓰면 상관 없었을텐데 노는게 없어서...
+
+아무튼 이렇게 캡쳐된 파일을 그대로 다시 재생하면,
+
+![Replay](./images/23.gif)
+
+빙고!
+
+이렇게 단순히 주파수를 캡쳐했다가 다시 재생하는걸 Replay Attack이라고 하는데, 패킷에 시간 정보만 넣어도 간단히 막히지만 응원봉에 RTC 같은걸 넣을리가 없다.
+
+여기까지만 해도 원하는 목표는 거의 달성했다고 볼 수 있다.
+
+![Blocks](./images/24.png)
+
+이제 캡쳐된 파일을 색깔별로 자르고 원하는 부분만 추출한 뒤 간단한 GUI를 만들어주면,
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gE12w3izLtE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+이렇게 원격 제어를 통해 색깔 바꾸기가 가능하다.
+
+---
+
+여기까지만 해도 목표는 달성했지만, 뭔가 2% 마음에 들지 않는다.
+
+왜냐면 저 방식으로는 지정된 몇가지 색으로만 바꿀 수 있고 내가 원하는 색을 만들 수 없기 때문인데,
+
+좀 더 나아가서, 패킷을 분석해서 원하는 색을 만들어보자.
+
+![Spectrum](./images/25.png)
+
+먼저 캡쳐된 데이터를 FFT 돌리고 Waterfall을 뿌려보면, 위처럼 시간 대역에서 주파수의 변화를 볼 수 있다. 저렇게 생겨먹은건 딱봐도 FSK다.
+
+FSK인걸 알았으니 복조를 해봅시다.
+
+![Blocks](./images/26.png)
+
+이렇게 넣고 돌리면
+
+![Demodulated Signal](./images/27.png)
+
+이렇게 복조된 파형이 나온다.
+
+이걸 바이너리로 변환하고, 각 색깔별로 이 과정을 반복하면 색이 바뀔 때 패킷 중 가운데 일부만 변함을 알 수 있다.
+
+![Hex Data](./images/28.png)
+
+이렇게.
+
+눈치가 좋다면 바뀌는 저 3 바이트가 RGB 색상값이라는걸 알아챘을텐데, 여기까지를 통해 추측한 패킷 구조는 아래와 같다.
+
+![Packet Structure](./images/29.png)
+
+그럼 이제 원하는 색상 값을 넣고 다시 변조해서 송신해보자.
+
+![Blocks](./images/30.png)
+
+근데 안된다 -_-
+
+무선 통신이니 오류를 감지하기 위한 CRC가 있는걸로 예상되니, 어떤 CRC 방식을 쓰고 있는지 때려맞춰보자.
+
+![CRC](./images/31.png)
+![CRC](./images/32.png)
+
+역시 이런건 무작위 대입이 최고...
+
+예상대로 CRC가 맞고, 방식도 찾았다.
+
+![Packet Structure](./images/33.png)
+
+즉 이렇게 생긴 프로토콜로 추측.
+
+...근데 이렇게 해도 안된다 -_-
+
+가만히 보니 가운데 바뀌는 패킷이 한 바이트 더 있다.
+
+![Bruteforce](./images/34.png)
+
+어차피 1바이트라 2^8 = 256가지밖에 안나오므로 모든 경우의 수 무작위 대입해서 색이 바뀔 때까지 돌려보자.
+
+그 결과 색상값 3바이트를 XOR 연산하고 offset을 조정한 일종의 checksum으로 파악됐다.
+
+![Packet Structure](./images/35.png)
+
+따라서 최종 프로토콜 구조는 위와 같은 것으로 추정.
+
+![Packet Generation Script](./images/36.png)
+
+여기까지 얻은 정보를 바탕으로 간단한 패킷 생성 스크립트를 짜면
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/QdMERlqQ1qY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+이렇게 입력받은 색상값으로 응원봉 색을 바꿀 수 있다.
+
+---
+
+여기서 끝내기 아쉬우니 컴퓨터 없이 들고 다닐 수 있게 만들어보자.
+
+![NodeMCU](./images/37.jpg)
+
+보드는 ESP8266이 달린 NodeMCU를 썼다. 와이파이가 붙어있어서 스마트폰이랑 연결하기도 편하고, 성능도 아두이노보다 훨씬 좋다.
+
+![Source Code](./images/38.png)
+
+뚝딱 코딩해서 넣어주고,
+
+![Source Code](./images/39.png)
+
+UI도 대충 만들어서 넣어주면,
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/q1sWSydrq8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+끝!
