@@ -44,6 +44,16 @@ module.exports = {
               rel: "noopener noreferrer"
             }
           },
+          {
+            resolve: "gatsby-remark-audio",
+            options: {
+              preload: "auto",
+              loop: false,
+              controls: true,
+              muted: false,
+              autoplay: false
+            }
+          },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
@@ -78,5 +88,6 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    `gatsby-plugin-twitter`
   ],
 }
