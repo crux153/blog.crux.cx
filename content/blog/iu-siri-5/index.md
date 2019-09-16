@@ -1,5 +1,5 @@
 ---
-title: Siri를 아이유 음성으로 바꾸기 (5)
+title: Siri를 아이유 목소리로 바꾸기 (5)
 date: "2019-09-15T13:00:00.000Z"
 description: 딥러닝을 이용한 모바일에서의 실시간 TTS 구현 - 5. Siri TTS 엔진 교체
 ---
@@ -51,7 +51,7 @@ Hooking할 메소드 명을 얻었으니 [Theos](https://github.com/theos/theos)
 DEMO
 =====
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/N7Dhr4jVKjs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/O1HIPrpNkUY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
@@ -67,7 +67,7 @@ TODO
 
 역시 딥러닝에서 가장 중요한 건 학습 데이터라는 걸 절실히 느낄 수 있었다. 4+ 시간의 데이터셋으로 얻어낸 결과 치고는 만족하지만 더 큰 데이터셋이 있다면 더 자연스러운 결과를 얻어낼 수 있지 않을까 싶다.
 
-자연스러운 결과를 얻으려면 최소 10+ 시간 이상의 데이터는 있어야 할 것 같다. 노가다를 얼마나 해야 되는 거냐...
+자연스러운 결과를 얻으려면 최소 10+ 시간 이상의 데이터는 있어야 할 것 같다. 노가다를 얼마나 해야 하는 것인가...
 
 그리고 학습 데이터의 품질 자체도 중요해 보인다. 문장 마무리가 깔끔하게 되지 않고 흐려지는 문장들이 좀 있었는데 그런 것들도 같이 학습이 되어 버렸다.
 
@@ -95,7 +95,7 @@ TODO
 
 또는 어차피 한국어 받침은 'ㄱ, ㄴ, ㄷ, ㄹ, ㅁ, ㅂ, ㅇ' 7가지만 발음되니 표준 발음법에 맞춰서 모든 종성을 저 7가지로 치환해버리는 방법도 있겠다.
 
-[mozilla/TTS](https://github.com/mozilla/TTS) 구현체에서는 [Phonemizer](https://github.com/bootphon/phonemizer)를 이용해서 문자열(_graphemes_)을 발음열(_phonemes_)로 변환하여 학습하는 방법을 사용했다. Phonemizer가 한국어를 지원하지 않는다는 게 문제일 뿐. 한국어를 지원하는 [KoG2P](https://github.com/scarletcho/KoG2P) 같은 라이브러리도 있지만, 파이썬만 지원하기 때문에 Objective-C로 포팅해야 한다.
+[mozilla/TTS](https://github.com/mozilla/TTS) 구현체에서는 [Phonemizer](https://github.com/bootphon/phonemizer)를 이용해서 문자열(_graphemes_)을 발음열(_phonemes_)로 변환하여 학습하는 방법을 사용했다. Phonemizer가 한국어를 지원하지 않는다는 게 문제일 뿐. 한국어를 지원하는 [KoG2P](https://github.com/scarletcho/KoG2P), [g2pK](https://github.com/Kyubyong/g2pK) 같은 라이브러리도 있지만, 파이썬만 지원하기 때문에 Objective-C로 포팅해야 한다.
 
 **4. 모델 튜닝**
 
