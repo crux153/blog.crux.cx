@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `blog.crux.cx`,
     author: `크럭스`,
-    description: `개발+덕질 블로그 겸 일기장`,
+    description: `코딩+덕질 블로그 겸 일기장`,
     siteUrl: `https://blog.crux.cx/`,
     disqusShortname: `crux-blog`
   },
