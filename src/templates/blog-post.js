@@ -11,14 +11,14 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = this.props.data.site.siteMetadata.title
-    const disqusShortname = this.props.data.site.siteMetadata.disqusShortname;
+    const disqusShortname = this.props.data.site.siteMetadata.disqusShortname
     const { slug, previous, next } = this.props.pageContext
 
     const disqusConfig = {
       shortname: disqusShortname,
       config: {
         identifier: slug,
-        title: siteTitle
+        title: siteTitle,
       },
     }
 
