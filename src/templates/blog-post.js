@@ -1,58 +1,43 @@
-import React from "react"
+import * as React from "react"
 import { Link, graphql } from "gatsby"
 import { DiscussionEmbed } from "disqus-react"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+import Seo from "../components/seo"
 
-class BlogPostTemplate extends React.Component {
-  render() {
-    const post = this.props.data.markdownRemark
-    const siteTitle = this.props.data.site.siteMetadata.title
-    const disqusShortname = this.props.data.site.siteMetadata.disqusShortname
-    const { slug, previous, next } = this.props.pageContext
+const BlogPostTemplate = ({
+  data: { previous, next, site, markdownRemark: post },
+  location,
+}) => {
+  const siteTitle = site.siteMetadata?.title || `Title`
 
-    const disqusConfig = {
-      shortname: disqusShortname,
-      config: {
-        identifier: slug,
-        title: siteTitle,
-      },
-    }
-
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
+  return (
+    <Layout location={location} title={siteTitle}>
+      <article
+        className="blog-post"
+        itemScope
+        itemType="http://schema.org/Article"
+      >
+        <header>
+          <h1 itemProp="headline">{post.frontmatter.title}</h1>
+          <p>{post.frontmatter.date}</p>
+        </header>
+        <section
+          dangerouslySetInnerHTML={{ __html: post.html }}
+          itemProp="articleBody"
         />
-        <h1>{post.frontmatter.title}</h1>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: `block`,
-            marginBottom: rhythm(1),
-            marginTop: rhythm(-1),
-          }}
-        >
-          {post.frontmatter.date}
-        </p>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
+        <hr />
+        <DiscussionEmbed
+          shortname={site.siteMetadata.disqusShortname}
+          config={{ identifier: post.id, title: siteTitle }}
         />
-        <DiscussionEmbed {...disqusConfig} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <Bio />
-
+        <hr />
+        <footer>
+          <Bio />
+        </footer>
+      </article>
+      <nav className="blog-post-nav">
         <ul
           style={{
             display: `flex`,
@@ -77,30 +62,58 @@ class BlogPostTemplate extends React.Component {
             )}
           </li>
         </ul>
-      </Layout>
-    )
-  }
+      </nav>
+    </Layout>
+  )
+}
+
+export const Head = ({ data: { markdownRemark: post } }) => {
+  return (
+    <Seo
+      title={post.frontmatter.title}
+      description={post.frontmatter.description || post.excerpt}
+    />
+  )
 }
 
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug(
+    $id: String!
+    $previousPostId: String
+    $nextPostId: String
+  ) {
     site {
       siteMetadata {
         title
-        author
         disqusShortname
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+    markdownRemark(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)
       html
       frontmatter {
         title
-        date(formatString: "YYYY/MM/DD")
+        date(formatString: "MMMM DD, YYYY")
         description
+      }
+    }
+    previous: markdownRemark(id: { eq: $previousPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+      }
+    }
+    next: markdownRemark(id: { eq: $nextPostId }) {
+      fields {
+        slug
+      }
+      frontmatter {
+        title
       }
     }
   }

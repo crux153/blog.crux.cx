@@ -1,70 +1,53 @@
 /**
  * Bio component that queries for data
- * with Gatsby's StaticQuery component
+ * with Gatsby's useStaticQuery component
  *
- * See: https://www.gatsbyjs.org/docs/static-query/
+ * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
  */
 
-import React from "react"
-import { StaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import * as React from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import { StaticImage } from "gatsby-plugin-image"
 
-import { rhythm } from "../utils/typography"
-
-function Bio() {
-  return (
-    <StaticQuery
-      query={bioQuery}
-      render={data => {
-        const { author, description } = data.site.siteMetadata
-        return (
-          <div
-            style={{
-              display: `flex`,
-              marginBottom: rhythm(2.5),
-            }}
-          >
-            <Image
-              fixed={data.avatar.childImageSharp.fixed}
-              alt={author}
-              style={{
-                marginRight: rhythm(1 / 2),
-                marginBottom: 0,
-                minWidth: 50,
-                borderRadius: `100%`,
-              }}
-              imgStyle={{
-                borderRadius: `50%`,
-              }}
-            />
-            <p>
-              by <strong>{author}</strong>
-              <br />
-              {description}
-            </p>
-          </div>
-        )
-      }}
-    />
-  )
-}
-
-const bioQuery = graphql`
-  query BioQuery {
-    avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
-      childImageSharp {
-        fixed(width: 50, height: 50) {
-          ...GatsbyImageSharpFixed
+const Bio = () => {
+  const data = useStaticQuery(graphql`
+    query BioQuery {
+      site {
+        siteMetadata {
+          author {
+            name
+          }
+          description
         }
       }
     }
-    site {
-      siteMetadata {
-        author
-        description
-      }
-    }
-  }
-`
+  `)
+
+  // Set these values by editing "siteMetadata" in gatsby-config.js
+  const author = data.site.siteMetadata?.author
+  const description = data.site.siteMetadata?.description
+
+  return (
+    <div className="bio">
+      <StaticImage
+        className="bio-avatar"
+        layout="fixed"
+        formats={["auto", "webp", "avif"]}
+        src="../images/profile-pic.jpg"
+        width={50}
+        height={50}
+        quality={95}
+        alt="Profile picture"
+      />
+      {author?.name && (
+        <p>
+          by <strong>{author.name}</strong> {author?.summary || null}
+          <br />
+          {description}
+        </p>
+      )}
+    </div>
+  )
+}
 
 export default Bio
