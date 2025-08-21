@@ -19,7 +19,7 @@ interface SeoQueryData {
   };
 }
 
-const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
+export const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
   const { site } = useStaticQuery<SeoQueryData>(graphql`
     query {
       site {
@@ -55,5 +55,3 @@ const Seo: React.FC<SeoProps> = ({ description, title, children }) => {
     </>
   );
 };
-
-export default Seo;

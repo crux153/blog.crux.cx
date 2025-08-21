@@ -14,7 +14,7 @@ interface BioQueryData {
   };
 }
 
-const Bio: React.FC = () => {
+export const Bio: React.FC = () => {
   const data = useStaticQuery<BioQueryData>(graphql`
     query BioQuery {
       site {
@@ -53,5 +53,3 @@ const Bio: React.FC = () => {
     </div>
   );
 };
-
-export default Bio;

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Link, graphql, PageProps, HeadFC } from "gatsby";
 
-import Bio from "../components/bio";
-import Layout from "../components/layout";
-import Seo from "../components/seo";
+import { Bio } from "../components/bio";
+import { Layout } from "../components/layout";
+import { Seo } from "../components/seo";
 
 interface DataType {
   site: {
@@ -26,7 +26,7 @@ interface DataType {
   };
 }
 
-const BlogIndex: React.FC<PageProps<DataType>> = ({ data, location }) => {
+export const BlogIndex: React.FC<PageProps<DataType>> = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`;
   const posts = data.allMarkdownRemark.nodes;
 

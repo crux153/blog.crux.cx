@@ -2,9 +2,9 @@ import * as React from "react";
 import { Link, graphql, PageProps, HeadFC } from "gatsby";
 import { DiscussionEmbed } from "disqus-react";
 
-import Bio from "../components/bio";
-import Layout from "../components/layout";
-import Seo from "../components/seo";
+import { Bio } from "../components/bio";
+import { Layout } from "../components/layout";
+import { Seo } from "../components/seo";
 
 interface DataType {
   previous?: {
@@ -41,7 +41,7 @@ interface DataType {
   };
 }
 
-const BlogPostTemplate: React.FC<PageProps<DataType>> = ({
+export const BlogPostTemplate: React.FC<PageProps<DataType>> = ({
   data: { previous, next, site, markdownRemark: post },
   location,
 }) => {

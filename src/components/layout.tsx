@@ -11,7 +11,7 @@ declare global {
   const __PATH_PREFIX__: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
+export const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`;
   const isRootPath = location.pathname === rootPath;
   let header: React.ReactNode;
@@ -42,5 +42,3 @@ const Layout: React.FC<LayoutProps> = ({ location, title, children }) => {
     </div>
   );
 };
-
-export default Layout;
