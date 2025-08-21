@@ -1,13 +1,6 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
- */
+import type { GatsbyConfig } from "gatsby";
 
-/**
- * @type {import('gatsby').GatsbyConfig}
- */
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
     title: `blog.crux.cx`,
     author: {
@@ -19,10 +12,11 @@ module.exports = {
     social: {
       twitter: `iu_crux`,
     },
-    disqusShortname: `crux-blog`
+    disqusShortname: `crux-blog`,
   },
   plugins: [
-   `gatsby-plugin-image`,
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -57,8 +51,8 @@ module.exports = {
             resolve: "gatsby-remark-external-links",
             options: {
               target: "_blank",
-              rel: "noopener noreferrer"
-            }
+              rel: "noopener noreferrer",
+            },
           },
           {
             resolve: "gatsby-remark-audio",
@@ -67,8 +61,8 @@ module.exports = {
               loop: false,
               controls: true,
               muted: false,
-              autoplay: false
-            }
+              autoplay: false,
+            },
           },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
@@ -100,16 +94,16 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(node => {
+            serialize: ({ query: { site, allMarkdownRemark } }: any) => {
+              return allMarkdownRemark.nodes.map((node: any) => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + node.fields.slug,
                   guid: site.siteMetadata.siteUrl + node.fields.slug,
                   custom_elements: [{ "content:encoded": node.html }],
-                })
-              })
+                });
+              });
             },
             query: `{
               allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
@@ -141,9 +135,11 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/gatsby-icon.png`,
       },
     },
-    `gatsby-plugin-twitter`
+    `gatsby-plugin-twitter`,
   ],
-}
+};
+
+export default config;

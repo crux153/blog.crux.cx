@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["DOM", "ES2021"],
+    "jsx": "react",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "incremental": true,
+    "typeRoots": ["node_modules/@types", "./src/types"],
+    "types": ["node"]
+  },
+  "include": [
+    "src/**/*",
+    "gatsby-config.ts",
+    "gatsby-node.ts",
+    "gatsby-browser.tsx",
+    "gatsby-ssr.tsx"
+  ],
+  "exclude": ["node_modules", "public", ".cache", "content"]
+}
