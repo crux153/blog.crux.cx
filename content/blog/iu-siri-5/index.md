@@ -48,20 +48,17 @@ Hooking할 메소드 명을 얻었으니 [Theos](https://github.com/theos/theos)
 
 ---
 
-DEMO
-=====
+# DEMO
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/O1HIPrpNkUY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ---
 
-TODO
-=====
+# TODO
 
 위의 데모를 보면 알겠지만 아이유 목소리 같으면서도 많이 부자연스럽다. 아직 딱 데모 동영상 찍을 정도의 수준이다. 앞서 말했듯이 쉬운 문장들은 그래도 비슷하게 읽지만 조금이라도 문장이 길어지거나 어려운 단어가 나오면 음성이 깨져버린다.
 
 아래는 내가 생각한 개선 사항들이다.
-
 
 **1. 학습 데이터 개선**
 
@@ -85,7 +82,7 @@ TODO
 
 **3. 한국어 처리 개선**
 
-현재 Tacotron-2에 추가한 한국어 구현은 _carpedm20_의 구현에 기반하고 있는데, 단순히 한글 이외의 문자를 한글로 치환하거나 제거하고 각 글자를 자모 단위로 쪼개서 Symbol에 대응하도록 변환하는 구조이다.
+현재 Tacotron-2에 추가한 한국어 구현은 *carpedm20*의 구현에 기반하고 있는데, 단순히 한글 이외의 문자를 한글로 치환하거나 제거하고 각 글자를 자모 단위로 쪼개서 Symbol에 대응하도록 변환하는 구조이다.
 
 그렇게 해도 학습 데이터가 충분하다면 쓸만한 음성을 얻을 수 있는 것으로 보이나, 제한된 데이터로 학습하기 위해서는 한국어 처리 로직을 개선할 필요가 있어 보인다.
 
@@ -118,4 +115,3 @@ Siri에서 내가 제일 많이 사용하는 기능은 **시간 알림 기능**�
 <blockquote class="twitter-tweet"><p lang="ko" dir="ltr">ㅋㅋㅋㅋ존댓말 쓸 가치도 없어서 명령하는 만월 네비게이션ㅋㅌㅋㅋㅋㅋ<br><br>매주 [토일] 밤 9시 방송<a href="https://twitter.com/hashtag/tvN?src=hash&amp;ref_src=twsrc%5Etfw">#tvN</a> <a href="https://twitter.com/hashtag/%ED%86%A0%EC%9D%BC%EB%93%9C%EB%9D%BC%EB%A7%88?src=hash&amp;ref_src=twsrc%5Etfw">#토일드라마</a> <a href="https://twitter.com/hashtag/%ED%98%B8%ED%85%94%EB%8D%B8%EB%A3%A8%EB%82%98?src=hash&amp;ref_src=twsrc%5Etfw">#호텔델루나</a> <a href="https://twitter.com/hashtag/%EC%9D%B4%EC%A7%80%EC%9D%80?src=hash&amp;ref_src=twsrc%5Etfw">#이지은</a> <a href="https://twitter.com/hashtag/%EC%97%AC%EC%A7%84%EA%B5%AC?src=hash&amp;ref_src=twsrc%5Etfw">#여진구</a> <a href="https://t.co/2v4oWygV9K">pic.twitter.com/2v4oWygV9K</a></p>&mdash; tvN 드라마 (@CJnDrama) <a href="https://twitter.com/CJnDrama/status/1157950429621178368?ref_src=twsrc%5Etfw">August 4, 2019</a></blockquote>
 
 이렇게 만든 TTS 엔진을 T Map 같은 네비게이션 앱에 적용하면 **만월 네비게이션**도 만들 수 있다!
-

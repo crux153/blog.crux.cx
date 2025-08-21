@@ -29,4 +29,3 @@ Gatsby는 React 기반의 정적 사이트 생성기로, 빌드 시점에 정보
 처음엔 Gatsby가 React를 걷어내고 plain한 HTML 파일로 생성해주는 줄 알았는데, 웬걸, 개발자 도구를 켜보니 React Devtools가 보인다. SSR의 개념에 더 가까운 것 같다. GraphQL 결과는 정적인 JSON 파일로 변환되는걸로 보인다. 콘솔에 [Workbox](https://developers.google.com/web/tools/workbox/) 로그가 보이는걸로 봐서는 Service Worker도 쓰고 있다. 내 생각보다 훨씬 익숙한 스택인듯. 아쉽게도 JS를 끄면 아무것도 안보인다.
 
 한동안 공부할게 생긴듯 하다.
-

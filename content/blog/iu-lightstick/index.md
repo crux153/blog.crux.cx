@@ -15,6 +15,7 @@ description: 아이유 공식 응원봉 중앙 제어 프로토콜 역분석
 물론 무식한 방법으로 응원봉 안의 회로를 수정하거나 아예 바꿔치기 해서 색 바꾸는 방법도 있다.
 
 ![Xyloband](./images/2.jpg)
+
 > [https://www.instructables.com/id/Hacking-a-Xyloband-With-Arduino/](https://www.instructables.com/id/Hacking-a-Xyloband-With-Arduino/)
 
 이렇게. 사진은 콜드플레이 공연에서 쓰는 Xyloband.
@@ -28,9 +29,10 @@ description: 아이유 공식 응원봉 중앙 제어 프로토콜 역분석
 1. 응원봉을 스마트폰과 블루투스 페어링 후 제어
 
 앱으로 블루투스와 연결해서 쓰는 응원봉이 전부 이 방식이고,
+
 - 응원봉은 스마트폰이랑만 연결되고 스마트폰 - 중앙 서버랑 통신하는 방식이랑
 - 스마트폰은 설정용으로만 쓰고 응원봉 - 컨트롤러가 ZigBee나 RF 등등 무선으로 직접 연결되는 방식
-으로 또 나뉘는걸로 보인다.
+  으로 또 나뉘는걸로 보인다.
 
 ![Lightsticks with area control](./images/1.png)
 
@@ -59,6 +61,7 @@ description: 아이유 공식 응원봉 중앙 제어 프로토콜 역분석
 ---
 
 ![XyloShield](./images/3.jpg)
+
 > [https://github.com/StefanKrupop/XyloShield](https://github.com/StefanKrupop/XyloShield)
 
 GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어 소스가 공개되어 있다. 하지만 위에서 말했듯 통신 방식은 만드는 놈 맘이고 전혀 다르기 때문에 이걸로 아이유 응원봉은 제어가 불가능하다.
@@ -66,6 +69,7 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 그리고 Xyloband 제어용으로 저런걸 만들 수 있는 이유는,
 
 ![Xylobands Controller](./images/4.jpg)
+
 > [http://xylobands.com/coldplay-tour-a-head-full-of-dreams/](http://xylobands.com/coldplay-tour-a-head-full-of-dreams/)
 
 바로 Xyloband 만드는 제조사가 아예 컨트롤러를 팔기 때문. GitHub 보고 도면 뽑아서 납땜하는 뻘짓을 하지 않더라도, 그냥 저거 사다가 집에서 갖고 놀면 된다.
@@ -90,7 +94,7 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 
 미국의 FCC 인증은 시험 성적서를 공개하고 있어서 위의 사진처럼 통신 주파수, 변조 방식까지 쉽게 얻을 수 있지만, 한국의 전파 인증은 그런거 없다.
 
-아무튼 저기서 얻은 정보는 제품에 표시된 제조사는 휴앤휴지만 실제 인증을 받은 제조사는 비트로라는거다. 
+아무튼 저기서 얻은 정보는 제품에 표시된 제조사는 휴앤휴지만 실제 인증을 받은 제조사는 비트로라는거다.
 
 ![Bitro](./images/8.png)
 
@@ -106,7 +110,7 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 
 ![Bitro Homepage](./images/11.png)
 
-기술 소개 항목이 있어 엄청 기대하고 들어갔는데... 텅 비어있다. -_-
+기술 소개 항목이 있어 엄청 기대하고 들어갔는데... 텅 비어있다. -\_-
 
 2017년에도 이상태였는데 이 글을 쓰는 2019년까지 이상태인걸 보면 넣을 생각이 없는 모양이다.
 
@@ -123,6 +127,7 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 저리 생겨먹은건 Chip On Board 또는 분석을 방해하기 위해 발라놓은건데, 떼려면 열풍기로 가열하면서 칼로 긁어내던가, 아님 강산을 통해 저 부분만 녹이던가 해야된다.
 
 ![Chip On Board](./images/13.png)
+
 > [https://www.youtube.com/watch?v=hQ5hXEK35WI](https://www.youtube.com/watch?v=hQ5hXEK35WI)
 
 이렇게...
@@ -146,7 +151,6 @@ GitHub를 찾아보면 위에서 말했던 Xyloband를 제어하는 하드웨어
 
 ![Beatlight](./images/17.jpg)
 ![Beatlight](./images/18.jpg)
-
 
 봤던 사진처럼 IC가 그대로 나와있다!
 
@@ -244,7 +248,7 @@ FSK인걸 알았으니 복조를 해봅시다.
 
 ![Blocks](./images/30.png)
 
-근데 안된다 -_-
+근데 안된다 -\_-
 
 무선 통신이니 오류를 감지하기 위한 CRC가 있는걸로 예상되니, 어떤 CRC 방식을 쓰고 있는지 때려맞춰보자.
 
@@ -259,7 +263,7 @@ FSK인걸 알았으니 복조를 해봅시다.
 
 즉 이렇게 생긴 프로토콜로 추측.
 
-...근데 이렇게 해도 안된다 -_-
+...근데 이렇게 해도 안된다 -\_-
 
 가만히 보니 가운데 바뀌는 패킷이 한 바이트 더 있다.
 
@@ -298,6 +302,5 @@ FSK인걸 알았으니 복조를 해봅시다.
 UI도 대충 만들어서 넣어주면,
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/q1sWSydrq8U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 
 끝!

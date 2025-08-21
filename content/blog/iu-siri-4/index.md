@@ -44,8 +44,6 @@ LPCNet은 학습한 H5 모델을 같이 있는 스크립트로 C 소스로 변�
 
 ---
 
-DEMO
-=====
+# DEMO
 
 <iframe width="560" height="996" src="https://www.youtube.com/embed/gH7771yCgwI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
